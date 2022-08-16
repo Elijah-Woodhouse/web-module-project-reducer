@@ -5,12 +5,13 @@ import CalcButton from './CalcButton';
 import './App.css';
 
 
-  import reducer, { initialState } from "./reducers";
-  import {
+import reducer, { initialState } from "./reducers";
+import {
     applyNumber,
     changeOperation,
     clearDisplay,
-    addMemory } from "./actions"
+    addMemory,
+    applyMemory, } from "./actions"
 
 
 function App() {
@@ -32,6 +33,10 @@ function App() {
 
   const memoryAdd = () => {
     dispatch(addMemory());
+  }
+
+  const memoryApply = () => {
+    dispatch(applyMemory());
   }
 
   return (
