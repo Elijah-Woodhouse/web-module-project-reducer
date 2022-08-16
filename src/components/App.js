@@ -5,25 +5,25 @@ import CalcButton from './CalcButton';
 import './App.css';
 
 
-import reducer, { initialState } from "./reducers";
+import reducer, { initialState } from "./../reducers";
 import {
     applyNumber,
     changeOperation,
     clearDisplay,
     addMemory,
-    applyMemory, } from "./actions"
+    applyMemory,
+    clearMemory,
+  } from "./../actions/index.js"
 
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleNumberClick = (number) => {
-    console.log("here")
     dispatch(applyNumber(number));
   }
 
   const handleOperator = (op) => {
-    console.log("there");
     dispatch(changeOperation(op))
   }
 
@@ -39,6 +39,10 @@ function App() {
     dispatch(applyMemory());
   }
 
+  const clearMem = () => {
+    dispatch(clearMemory())
+  }
+
   return (
     <div className="App">
       <nav className="navbar navbar-dark bg-dark">
@@ -49,16 +53,16 @@ function App() {
         <div className="col-md-12 d-flex justify-content-center">
           <form name="Cal">
 
-            <TotalDisplay value={state.display}/>
+            <TotalDisplay value={state.total}/>
             <div className="row details">
               <span id="operation"><b>Operation:</b>{state.operation}</span>
               <span id="memory"><b>Memory:</b>{state.memory}</span>
             </div>
 
             <div className="row">
-              <CalcButton value={"M+"} onClick={memoryAdd()}/>
-              <CalcButton value={"MR"}/>
-              <CalcButton value={"MC"}/>
+              <CalcButton value={"M+"} onClick={() => memoryAdd()}/>
+              <CalcButton value={"MR"} onClick={() => memoryApply()}/>
+              <CalcButton value={"MC"} onClick={() => clearMem()}/>
             </div>
 
             <div className="row">
@@ -86,7 +90,7 @@ function App() {
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"} onClick={handleClear}/>
+              <CalcButton value={"CE"} onClick={() => handleClear()}/>
             </div>
 
           </form>
